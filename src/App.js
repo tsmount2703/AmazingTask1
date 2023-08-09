@@ -52,11 +52,11 @@ const items = [
   ),
 
   getItem('NHÂN VIÊN', 'sub1', <TeamOutlined />, [
-    getItem(<Link to="/allstaff" >Phòng Ban</Link>
-    ,'Phòng Ban', 
-    <TeamOutlined />),
+    getItem(<Link to="/department" >Phòng Ban</Link>
+      , 'Phòng Ban',
+      <TeamOutlined />),
     getItem('Phòng Ban Của Tôi', '3', <TeamOutlined />),
-    getItem(<Link to="/department" >Toàn Bộ Nhân Viên</Link>,
+    getItem(<Link to="/allstaff" >Toàn Bộ Nhân Viên</Link>,
       'Toàn Bộ Nhân Viên',
       <TeamOutlined />),
     getItem('Tạo Nhân Viên Mới', '5', <UserAddOutlined />),
@@ -116,43 +116,39 @@ const App = () => {
           // top:0,
           // bottom: 0,
           marginRight: 10,
+          
         }}
       >
-        <Avatar style={{ marginTop: '20px', textAlign: 'center', }} shape="square" size="large" icon={<UserOutlined />} />
-
-        <Text style={{
-          fontSize: '13px',
-          marginLeft: '10px',
-          color: 'grey',
-          fontFamily: 'sans-serif'
-          // marginRight:'5px',
-          // marginBottom:'200px',
-
-        }}
-        >NGUYEN VAN QUAN LY</Text>
-
-        <br />
-        <br />
+        <Space size={12} wrap>
+          <Avatar shape="square" size="large" icon={<UserOutlined />} />
+          <h3>Nguyen Van Quan Ly</h3>
+        </Space>
+        {/* <br />
+        <br /> */}
         <div className="demo-logo-vertical" />
-        <Switch onChange={changeMode} /> <Text
-          style={{
-            color: 'grey',
-            fontSize: '100',
 
-          }}
-        ><>Change Mode</></Text>
-        <Divider type="horizontal" />
+        {/* <Space size={1} >
+          <Switch onChange={changeMode} />
+          <h3
+            style={{
+              // color: 'grey',
+              // fontSize: 'px',
+              marginLeft: '1px',
+            }}
+          ><>Change Mode</></h3>
+        </Space>
 
-        <Switch onChange={changeTheme} /> <Text
-          style={{
-            color: 'grey',
-            fontSize: '100',
-
-          }}
-        ><>Change Style</></Text>
+        <Space size={1}>
+          <Switch onChange={changeTheme} /> <h3
+            style={{
+              // color: 'grey',
+              // fontSize: '100',
+              marginLeft: '1px',
+            }}
+          ><>Change Style</></h3>
+        </Space>
         <br />
-        <br />
-
+        <br /> */}
         <Menu
           style={{
             width: '260',
@@ -171,45 +167,6 @@ const App = () => {
           minHeight: '100vh',
         }}
       >
-        <Header
-          theme={theme1}
-          style={{
-            marginLeft:'16px',
-            padding: 0,
-            background: colorBgContainer,
-          }}
-
-        >
-
-          <div>
-            <Text type="secondary"
-              style={{
-                marginLeft: '16px',
-                fontSize: '15px',
-                
-              }}
-            ><b
-            style={{
-              display:'inline'
-            }}
-            >Danh Sách Nhân Viên</b></Text>
-            <UploadOutlined
-              rotate={90}
-              style={{
-                fontSize: '30px',
-                padding: '5px',
-                margin: '15px 20px 0 0',
-                float: 'right',
-                color: '#1677ff',
-                border: '1px solid',
-                borderColor: '#dddddd',
-                
-                borderRadius: '10px',
-              }}
-            />
-          </div>
-
-        </Header>
 
         <Content
           theme={theme1}
@@ -229,7 +186,7 @@ const App = () => {
               <Route path='' element={<Index />} />
               <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/department' element={<Department />} />
-              <Route path='/allstaff' element={<AllStaff/>} />
+              <Route path='/allstaff' element={<AllStaff />} />
             </Routes>
           </div>
 
