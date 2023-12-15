@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRef } from 'react';
 import Highlighter from 'react-highlight-words';
-import { Input, Space, Badge, Table, Layout, theme, Typography, Button } from 'antd';
+import { Input, Space, Badge, Table, Layout, theme, Button, Avatar, Tag, Divider } from 'antd';
 import {
   PlusCircleOutlined,
   EllipsisOutlined,
@@ -13,10 +13,16 @@ import {
   ArrowUpOutlined,
   SearchOutlined,
   MoreOutlined,
+  UnorderedListOutlined,
+  CalendarOutlined,
 } from '@ant-design/icons';
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+import Sider1 from '../components/Sider';
+import Footer1 from '../components/Footer';
+import { Link } from 'react-router-dom';
 
-const { Header, Content, Footer, Sider } = Layout;
+{/* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> */ }
+
+const { Header, Content } = Layout;
 
 
 
@@ -27,7 +33,7 @@ const data = [
     id: '1',
     departments: 'Sales',
     manager: 'Nguyen Van Quan Ly',
-    nos: '3',
+    nos: 3,
     eofm: 'hrstaff@test.com',
     phone: 'string'
   },
@@ -38,7 +44,7 @@ const data = [
     id: '2',
     departments: 'Marketing',
     manager: '',
-    nos: '0',
+    nos: 0,
     eofm: '',
     phone: 'string'
   },
@@ -49,7 +55,7 @@ const data = [
     id: '3',
     departments: 'Finance',
     manager: '',
-    nos: '0',
+    nos: 0,
     eofm: '',
     phone: 'string'
   },
@@ -60,7 +66,7 @@ const data = [
     id: '4',
     departments: 'Human Resource',
     manager: '',
-    nos: '0',
+    nos: 0,
     eofm: '',
     phone: 'string'
   },
@@ -71,7 +77,7 @@ const data = [
     id: '5',
     departments: 'Operations',
     manager: '',
-    nos: '0',
+    nos: 0,
     eofm: '',
     phone: 'string'
   },
@@ -82,7 +88,7 @@ const data = [
     id: '6',
     departments: 'Engineering',
     manager: '',
-    nos: '0',
+    nos: 0,
     eofm: '',
     phone: 'string'
   },
@@ -93,7 +99,7 @@ const data = [
     id: '7',
     departments: 'Customer Support',
     manager: '',
-    nos: '0',
+    nos: 0,
     eofm: '',
     phone: 'string'
   },
@@ -104,7 +110,7 @@ const data = [
     id: '8',
     departments: 'Research & Development',
     manager: '',
-    nos: '0',
+    nos: 0,
     eofm: '',
     phone: 'string'
   },
@@ -115,7 +121,7 @@ const data = [
     id: '9',
     departments: 'Quality Assurance',
     manager: '',
-    nos: '0',
+    nos: 0,
     eofm: '',
     phone: 'string'
   },
@@ -125,7 +131,7 @@ const data = [
     id: '10',
     departments: 'Design',
     manager: '',
-    nos: '0',
+    nos: 0,
     eofm: '',
     phone: 'string'
   },
@@ -227,7 +233,7 @@ export default function Department() {
     filterIcon: (filtered) => (
       <MoreOutlined
         style={{
-          color: filtered ? '#1677ff' : undefined,
+          color: filtered ? '#1677ff' : 'black',
         }}
       />
     ),
@@ -258,80 +264,24 @@ export default function Department() {
     {
       title: '',
       dataIndex: 'dot',
-      // width: '5%',
+
     },
-  
+
     {
-      title: 'ID',
+      title: <span
+        style={{}}
+      >ID</span>,
       dataIndex: 'id',
+      render: (id) => <span style={{ color: 'gray' }}>{id}</span>,
     },
-  
     {
-      title: [<UserOutlined />, ' Tên phòng ban'],
-      key: 'departments',
+      title: <span
+        style={{}}
+      ><UnorderedListOutlined /> Phòng ban</span>,
       dataIndex: 'departments',
-      // filters: [
-      //   {
-      //     text: 'Sales',
-      //     value: 'Sales',
-      //   },
-      //   {
-      //     text: 'Marketing',
-      //     value: 'Marketing',
-      //   },
-  
-      //   {
-      //     text: 'Finance',
-      //     value: 'Finance',
-      //   },
-  
-      //   {
-      //     text: 'Human Resource',
-      //     value: 'Human Resource',
-      //   },
-  
-      //   {
-      //     text: 'Operations',
-      //     value: 'Operations',
-      //   },
-  
-      //   {
-      //     text: 'Engineering',
-      //     value: 'Engineering',
-      //   },
-  
-      //   {
-      //     text: 'Customer Support',
-      //     value: 'Customer Support',
-      //   },
-  
-      //   {
-      //     text: 'Research & Development',
-      //     value: 'Research & Development',
-      //   },
-  
-      //   {
-      //     text: 'Quality Assurance',
-      //     value: 'Quality Assurance',
-      //   },
-  
-      //   {
-      //     text: 'Design',
-      //     value: 'Design',
-      //   },
-  
-      //   {
-      //     text: 'Chăm sóc khách hàng',
-      //     value: 'Chăm sóc khách hàng',
-      //   },
-  
-      // ],
-      // onFilter: (value, record) => record.departments.startsWith(value),
-      // filterSearch: true,
-      
       render: (department) => {
         let color = 'cyan';
-  
+
         if (department === 'Sales') {
           color = 'orange';
         }
@@ -365,136 +315,159 @@ export default function Department() {
         if (department === 'Chăm sóc khách hàng') {
           color = '#4B0082';
         }
-  
+
         return (
-          <Badge color={color} text={<u>{department}</u>} />
+          <Badge color={color} text={<span
+            style={{ color: 'grey' }}
+          ><u>{department}</u></span>} />
         );
-  
-  
+
+
       },
     },
-  
+
     {
-      title: [<UserOutlined />, ' Quản lý ',<ArrowUpOutlined />],
+      title:
+        <span
+          style={{}}
+        ><UserOutlined /> Quản lý <ArrowUpOutlined /></span>,
+
       dataIndex: 'manager',
-      ...getColumnSearchProps('staffname'),
-      // filters: [
-      //   {
-      //     text: '1',
-      //     value: '1',
-      //   },
-      //   {
-      //     text: '2',
-      //     value: '2',
-      //   },
-  
-      //   {
-      //     text: '3',
-      //     value: '3',
-      //   },
-  
-      //   {
-      //     text: '4',
-      //     value: '4',
-      //   },
-      // ],
-      // onFilter: (value, record) => record.manager.startsWith(value),
-      // filterSearch: true,
+      ...getColumnSearchProps('manager'),
+      render: (manager) => {
+        let letter = manager.charAt(0);
+        if (manager !== '') {
+          return (
+            <>
+              <Avatar
+                style={{
+                  backgroundColor: '#800080',
+                  color: 'white',
+                  marginRight: '5px',
+                }}
+              >
+                {letter}
+              </Avatar>
+              <span
+                style={{
+                  color: 'grey'
+                }}
+              >{manager}</span>
+            </>
+          );
+        }
+
+      },
     },
-  
-  
+
+
     {
-      title: [<BorderlessTableOutlined rotate={4} />, ' Số nhân viên'],
+      title: <span
+        style={{}}
+      ><BorderlessTableOutlined rotate={4} /> Số nhân viên</span>,
       dataIndex: 'nos',
+      render: (nos) => <span style={{ color: 'gray' }}>{nos}</span>,
     },
-  
+
     {
-      title:  [ <AlignLeftOutlined />,' Email quản lý'],
+      title: <span
+        style={{}}
+      ><AlignLeftOutlined /> Email quản lý</span>,
       dataIndex: 'eofm',
+      render: (eofm) => <span style={{ color: 'gray' }}>{eofm}</span>,
     },
-  
+
     {
-      title: [<PhoneOutlined rotate={90} />, ' Số điện thoại'],
+      title: <span
+        style={{}}
+      ><PhoneOutlined rotate={90} /> Số điện thoại</span>,
       dataIndex: 'phone',
+      render: (phone) => <span style={{ color: 'gray' }}>{phone}</span>,
     },
-  
-  
   ];
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const [mode, setMode] = useState('inline');
+  // const [mode, setMode] = useState('inline');
   const [theme1, setTheme1] = useState('light');
-  const changeMode = (value) => {
-    setMode(value ? 'vertical' : 'inline');
-  };
-  const changeTheme = (value) => {
-    setTheme1(value ? 'dark' : 'light');
-  };
+  // const changeMode = (value) => {
+  //   setMode(value ? 'vertical' : 'inline');
+  // };
+  // const changeTheme = (value) => {
+  //   setTheme1(value ? 'dark' : 'light');
+  // };
   return (
     <Layout hasSider>
+      <Sider1 />
       <Layout
         className="site-layout"
         style={{
-          marginLeft: 0,
+          marginLeft: '320px',
           bottom: 0,
-          height: '140vh',
-          // backgroundColor: 'white',
+          // height: '140vh',
+          backgroundColor: 'white',
           // display: 'inline'
-          marginRight:'10px',
+          marginRight: '10px',
 
         }}
       >
+
         <Header
           style={{
-            marginLeft:'16px',
+            marginLeft: '16px',
             // padding: 0,
             background: colorBgContainer,
-            marginRight:'14px',
+            marginRight: '14px',
+            border: '1px solid',
+            borderColor: '#dddddd',
+            borderRadius: '10px',
           }}
 
         >
-          <h3 style={{display: 'inline', float:'left',margin:'0px 20px 0px 0px'}}>DANH SÁCH PHÒNG BAN</h3>
-            <UploadOutlined
-              rotate={90}
+          <h3 style={{ display: 'inline', float: 'left', margin: '0px 20px 0px 0px' }}>DANH SÁCH PHÒNG BAN</h3>
+          <Link to="/dashboard">
+            <Button size='large'
               style={{
-                fontSize: '30px',
                 padding: '5px',
                 margin: '13px 20px 0px 0px',
                 float: 'right',
-                color: '#1677ff',
                 border: '1px solid',
                 borderColor: '#dddddd',
                 borderRadius: '10px',
               }}
-            />
+            >
+              <UploadOutlined
+                rotate={90}
+                style={{
+                  fontSize: '30px',
+                  color: '#1677ff',
+                }}
+              />
+            </Button>
+          </Link>
         </Header>
 
-        <Header
-        style={{
-          backgroundColor: 'white',
-          margin: '20px 15px 0px 16px',
+        {/* <Header
+          style={{
+            backgroundColor: 'white',
+            margin: '20px 15px 0px 16px',
+            border: '1px solid',
+            borderColor: '#dddddd',
+            borderRadius: '10px',
 
-        }}>
-          <Button
-            style={{
-              display:'float',
-              margin: '15px 15px 20px 0px',
-              float: 'right',
-
-            }}
-            type="primary" size="large" ><PlusCircleOutlined /> Thêm Phòng Ban</Button>
-          {/* <Divider type="horizontal" style={{ color: '#dddddd' }} /> */}
-        </Header>
+          }}>
+         
+        </Header> */}
 
         <Content
           theme={theme1}
           style={{
             margin: '10px 16px 50px',
-            overflow: 'initial',
+            // overflow: 'auto',
           }}
         >
+
           <div
             style={{
               // padding: 24,
@@ -503,11 +476,29 @@ export default function Department() {
               display: 'inline',
             }}
           >
+            <Button
+              style={{
+                display: 'float',
+                margin: '15px 0px 10px 0px',
+                float: 'right',
 
+              }}
+              type="primary" size="large" ><PlusCircleOutlined /> Thêm Phòng Ban</Button>
+               <Divider type="horizontal" style={{ color: '#dddddd' }} />
             <Table
-              columns={columns} dataSource={data} onChange={onChange} scroll={{ x: 'max-content', }} />;
+              style={{
+                border: '1px solid',
+                borderColor: '#dddddd',
+                borderRadius: '10px',
+                // maxWidth:'max-content',
+                // display:'flex',
+                // justifyContent:'center'
+                // tableLayout:'grey',
+              }}
+              columns={columns} dataSource={data} onChange={onChange} scroll={{ x: 'max-content' }} />
           </div>
         </Content>
+        <Footer1 />
       </Layout>
     </Layout>
   );

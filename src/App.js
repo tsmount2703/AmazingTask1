@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom'
-import { Input, Space, Tag, Badge, Avatar, Table, Layout, theme, Typography, Button, Dropdown } from 'antd';
+import { Input, Space, Avatar, Layout, theme, Typography, Divider } from 'antd';
 import {
   TeamOutlined,
   HomeOutlined,
   FieldTimeOutlined,
   FileOutlined,
   BarChartOutlined,
-  LeftCircleTwoTone,
-  PlusCircleOutlined,
   SnippetsOutlined,
   UsergroupAddOutlined,
   UserOutlined,
@@ -18,22 +16,32 @@ import {
   FileDoneOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import { Divider, Menu, Switch } from 'antd';
-import './index.css';
-import { DownOutlined } from '@ant-design/icons';
-import Dashboard from './layouts/Dashboard';
-import Index from './layouts/Index';
+import { Menu, Switch } from 'antd';
+// import './index.css';
+// import { DownOutlined } from '@ant-design/icons';
+
 import { Link } from 'react-router-dom';
+import Content1 from './components/Content';
+import Footer1 from './components/Footer';
+import Sider1 from './components/Sider';
+import New from './layouts/New';
+import Dashboard from './layouts/Dashboard';
 import Department from './layouts/Department';
-import MenuItem from 'antd/es/menu/MenuItem';
-import SubMenu from 'antd/es/menu/SubMenu';
-import Item from 'antd/es/list/Item';
 import AllStaff from './layouts/AllStaff';
-// import Header from './components/Header';
+import StaffContract from './layouts/StaffContract';
+import AddStaff from './layouts/AddStaff';
+import MyContract from './layouts/MyContract';
+import Index from './layouts/Index';
+// import MenuItem from 'antd/es/menu/MenuItem';
+// import SubMenu from 'antd/es/menu/SubMenu';
+// import Item from 'antd/es/list/Item';
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-const { Search } = Input;
+// const { Search } = Input;
 const onSearch = (value) => console.log(value);
-const { Text } = Typography;
+// const { Text } = Typography;
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -43,23 +51,26 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 const items = [
   getItem(
     <Link to="/dashboard" >Dashboard</Link>,
-    'Dashboard',
+    '1',
     <HomeOutlined />
   ),
 
   getItem('NHÂN VIÊN', 'sub1', <TeamOutlined />, [
     getItem(<Link to="/department" >Phòng Ban</Link>
-      , 'Phòng Ban',
+      , '2',
       <TeamOutlined />),
     getItem('Phòng Ban Của Tôi', '3', <TeamOutlined />),
     getItem(<Link to="/allstaff" >Toàn Bộ Nhân Viên</Link>,
-      'Toàn Bộ Nhân Viên',
+      '4',
       <TeamOutlined />),
-    getItem('Tạo Nhân Viên Mới', '5', <UserAddOutlined />),
+    getItem(
+      <Link to="/addstaff" >Tạo Nhân Viên Mới</Link>,
+      '5',
+      <UserAddOutlined />),
   ]),
   getItem('TĂNG CA', 'sub2', <FieldTimeOutlined />, [
     getItem('Đơn Tăng Ca Nhân Viên', '6', <SolutionOutlined />),
@@ -80,8 +91,13 @@ const items = [
   ]),
 
   getItem('HỢP ĐỒNG', 'sub6', <SnippetsOutlined />, [
-    getItem('Hợp Đồng Nhân Viên', '14', <FileDoneOutlined />),
-    getItem('Hợp Đồng Của Tôi', '15', <FileDoneOutlined />),
+    getItem(
+      <Link to="/staffcontract"> Hợp Đồng Nhân Viên</Link>
+      , '14', <FileDoneOutlined />),
+    getItem(
+      <Link to="/mycontract"> Hợp Đồng Của Tôi</Link>,
+      '15',
+      <FileDoneOutlined />),
   ]),
 
   getItem('TUYỂN DỤNG', 'sub7', <UsergroupAddOutlined />, [
@@ -89,119 +105,47 @@ const items = [
 
   ]),
 ]
-
 const App = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [mode, setMode] = useState('inline');
   const [theme1, setTheme1] = useState('light');
-  const changeMode = (value) => {
-    setMode(value ? 'vertical' : 'inline');
+  // const changeMode = (value) => {
+  //   setMode(value ? 'vertical' : 'inline');
+  // };
+  // const changeTheme = (value) => {
+  //   setTheme1(value ? 'dark' : 'light');
+  // };
+  const [selectedKeys, setSelectedKeys] = useState([]);
+  useEffect(() => {
+    const selectedMenu = sessionStorage.getItem('selectedMenu');
+    if (selectedMenu) {
+      setSelectedKeys([selectedMenu]);
+    }
+  }, []
+  );
+  const handleMenuSelect = (item) => {
+    setSelectedKeys([item.key]);
+    sessionStorage.setItem('selectedMenu', item.key);
   };
-  const changeTheme = (value) => {
-    setTheme1(value ? 'dark' : 'light');
-  };
+
 
   return (
-    <Layout hasSider>
+    <>
+      <Routes>
 
-      <Sider theme={theme1}
-        width="260"
-        style={{
-          // overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
-          // left: 0,
-          // top:0,
-          // bottom: 0,
-          marginRight: 10,
-          
-        }}
-      >
-        <Space size={12} wrap>
-          <Avatar shape="square" size="large" icon={<UserOutlined />} />
-          <h3>Nguyen Van Quan Ly</h3>
-        </Space>
-        {/* <br />
-        <br /> */}
-        <div className="demo-logo-vertical" />
+        <Route path='/' element={<New />} />
+        <Route path='/index' element={<Index />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/department' element={<Department />} />
+        <Route path='/allstaff' element={<AllStaff />} />
+        <Route path='/staffcontract' element={<StaffContract />} />
+        <Route path='/mycontract' element={<MyContract />} />
+        <Route path='/addstaff' element={<AddStaff />} />
 
-        {/* <Space size={1} >
-          <Switch onChange={changeMode} />
-          <h3
-            style={{
-              // color: 'grey',
-              // fontSize: 'px',
-              marginLeft: '1px',
-            }}
-          ><>Change Mode</></h3>
-        </Space>
-
-        <Space size={1}>
-          <Switch onChange={changeTheme} /> <h3
-            style={{
-              // color: 'grey',
-              // fontSize: '100',
-              marginLeft: '1px',
-            }}
-          ><>Change Style</></h3>
-        </Space>
-        <br />
-        <br /> */}
-        <Menu
-          style={{
-            width: '260',
-          }}
-          theme={theme1} mode={mode} defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']}
-          items={items}
-        >
-        </Menu>
-      </Sider>
-      <Layout
-        className="site-layout"
-        style={{
-          // marginLeft: 200,
-          // bottom: 0,
-          marginLeft: '250px',
-          minHeight: '100vh',
-        }}
-      >
-
-        <Content
-          theme={theme1}
-          style={{
-            margin: '8px 8px 0 15px',
-            // overflow: 'initial',
-          }}
-        >
-          <div
-            style={{
-              // padding: 24,
-              textAlign: 'center',
-              background: colorBgContainer,
-            }}
-          >
-            <Routes>
-              <Route path='' element={<Index />} />
-              <Route path='/dashboard' element={<Dashboard />} />
-              <Route path='/department' element={<Department />} />
-              <Route path='/allstaff' element={<AllStaff />} />
-            </Routes>
-          </div>
-
-        </Content>
-        <Footer
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          HRMIntern@2023
-        </Footer>
-
-
-      </Layout>
-    </Layout>
+      </Routes>
+    </>
   );
 };
 export default App;

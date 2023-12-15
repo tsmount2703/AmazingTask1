@@ -2,68 +2,44 @@ import React, { useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { useRef } from 'react';
 import Highlighter from 'react-highlight-words';
-import { Input, Space, Tag, Badge, Avatar, Table, Layout, theme, Button, Select } from 'antd';
+import { Input, Space, Tag, Badge, Avatar, Table, Layout, theme, Button } from 'antd';
 import {
-  PlusCircleOutlined,
   UserOutlined,
   EllipsisOutlined,
   UploadOutlined,
   UnorderedListOutlined,
   AlignLeftOutlined,
   BorderlessTableOutlined,
-  PhoneOutlined,
   CalendarOutlined,
   MoreOutlined,
 } from '@ant-design/icons';
 import Sider1 from '../components/Sider';
 import Footer1 from '../components/Footer';
 import { Link } from 'react-router-dom';
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
 const { Header, Content } = Layout;
-const { Option } = Select;
 
 
 const data = [
   {
     key: '1',
     dot: <EllipsisOutlined />,
-    status: 'Manager',
+    status: 'Hiệu Lực',
     id: '1',
-    staffname: 'string string',
-    departments: 'Sales',
-    phone: 'string',
-    genders: ['Nam'],
-    email: 'test1@gmail.com',
-    bank: 'string',
-    date: '4 tháng 8 năm 2023',
-    address: 'string',
-    nation: 'string',
-    bankaccount: 'string',
-  },
-  {
-    key: '2',
-    dot: <EllipsisOutlined />,
-    status: 'Staff',
-    id: '2',
-    staffname: 'Nguyen Van Nhan Vien',
-    departments: 'Chăm sóc khách hàng',
-    phone: 'string',
-    genders: ['Nam'],
-    email: 'staff@test.com',
-    bank: 'TPBank',
-    date: '6 tháng 7 năm 2005',
-    address: 'string',
-    nation: 'string',
-    bankaccount: 'string',
-  },
-
-  {
-    key: '3',
-    dot: <EllipsisOutlined />,
-    status: 'Manager',
-    id: '3',
-    staffname: 'Nguyen Van Quan Ly',
+    staffname: 'Vo Nguyen Trung Son',
+    ctype: 'Hợp đồng xác nhận hạn',
+    stypes: 'Gross To Net',
+    depend: '1',
+    sdate: '05/08/2023, 00:00',
+    edate: '30/11/2023, 00:00',
+    salary: '90.000.000',
+    tax: '80.000.000',
+    allowance: '0',
+    note: '',
+    createtime: '05/08/2023, 00:00',
+    changedtime: '05/08/2023, 00:00',
     departments: 'Sales',
     phone: 'string',
     genders: ['Nam'],
@@ -74,31 +50,30 @@ const data = [
     nation: 'string',
     bankaccount: 'string',
   },
-
   {
-    key: '4',
+    key: '2',
     dot: <EllipsisOutlined />,
-    status: 'Staff',
-    id: '4',
-    staffname: 'Van Nguyen',
-    departments: 'Sales',
-    phone: 'string',
-    genders: ['Nữ'],
-    email: 'hrmanager@test.com',
-    bank: 'TPBank',
-    date: '4 tháng 8 năm 2002',
-    address: 'string',
-    nation: 'string',
-    bankaccount: 'string',
+    status: 'Hiệu Lực',
+    id: '2',
+    staffname: 'Nguyen Van Nhan Vien',
+    ctype: 'Hợp đồng xác nhận hạn',
+    stypes: 'Gross To Net',
+    depend: '2',
+    sdate: '05/08/2023, 00:00',
+    edate: '30/11/2023, 00:00',
+    salary: '9.000.000',
+    tax: '8.000.000',
+    allowance: '0',
+    note: '',
+    createtime: '05/08/2023, 00:00',
+    changedtime: '05/08/2023, 00:00',
   },
-
-
 ];
 const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
 };
 
-export default function AllStaff() {
+export default function StaffContract() {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
@@ -212,27 +187,7 @@ export default function AllStaff() {
       dataIndex: 'dot',
     },
 
-    {
-      dataIndex: <span
-        style={{}}
-      >Status</span>,
-      key: 'status',
-      render: (text) => {
-        let color = '';
 
-        if (text === 'Manager') {
-          color = '#4169E1';
-        }
-        return (
-          <Avatar
-            style={{
-              backgroundColor: color,
-            }}
-            icon={<UserOutlined />}
-          />
-        )
-      }
-    },
     {
       title: <span
         style={{}}
@@ -244,7 +199,7 @@ export default function AllStaff() {
     {
       title: <span
         style={{}}
-      ><AlignLeftOutlined /> Tên nhân viên</span>,
+      ><UserOutlined /> Tạo Bởi</span>,
       dataIndex: 'staffname',
       ...getColumnSearchProps('staffname'),
       render: (staffname) => {
@@ -276,44 +231,17 @@ export default function AllStaff() {
     {
       title: <span
         style={{}}
-      ><UnorderedListOutlined /> Phòng ban</span>,
-      key: 'departments',
-      dataIndex: 'departments',
-      render: (department) => {
+      ><UnorderedListOutlined /> Loại Hợp Đồng</span>,
+      key: 'ctype',
+      dataIndex: 'ctype',
+      render: (ctype) => {
         let color = 'cyan';
 
-        if (department === 'Sales') {
+        if (ctype === 'Hợp đồng xác nhận hạn') {
           color = 'orange';
         }
-        if (department === 'Marketing') {
+        if (ctype === 'Hợp đồng không xác định hạn') {
           color = 'lime';
-        }
-        if (department === 'Finance') {
-          color = 'purple';
-        }
-        if (department === 'Human Resource') {
-          color = 'red';
-        }
-        if (department === 'Operations') {
-          color = 'yellow';
-        }
-        if (department === 'Engineering') {
-          color = '	#2E8B57';
-        }
-        if (department === 'Customer Support') {
-          color = '	#BA55D3';
-        }
-        if (department === 'Research & Development') {
-          color = 'pink';
-        }
-        if (department === 'Quality Assurance') {
-          color = 'green';
-        }
-        if (department === 'Design') {
-          color = '#A52A2A';
-        }
-        if (department === 'Chăm sóc khách hàng') {
-          color = '#4B0082';
         }
 
         return (
@@ -321,95 +249,164 @@ export default function AllStaff() {
             style={{
               color: 'grey',
             }}
-          ><u>{department}</u></span>} />
+          ><u>{ctype}</u></span>} />
+        );
+      },
+    },
+
+    {
+      title: <span
+        style={{}}
+      ><UnorderedListOutlined /> Trạng thái</span>,
+      dataIndex: 'status',
+      render: (status) => {
+        let color = 'cyan';
+        let backgroundColor = '';
+
+        if (status === 'Hiệu Lực') {
+          color = '#9400D3';
+          backgroundColor = '#D6B4FC';
+        }
+        if (status === 'Không Hiệu Lực') {
+          color = '#B90E0A';
+          backgroundColor = '#D6B4FC';
+
+        }
+
+        return (
+          <Tag color={backgroundColor} key={status}
+            style={{
+              color: [color],
+            }}
+          >
+            {status.toUpperCase()}
+          </Tag>
         );
 
 
       },
     },
-    {
-      title: <span
-        style={{}}
-      ><PhoneOutlined rotate={90} /> Số điện thoại</span>,
-      dataIndex: 'phone',
-      render: (phone) => <span style={{ color: 'gray' }}>{phone}</span>,
-    },
 
     {
       title: <span
         style={{}}
-      ><UnorderedListOutlined /> Giới tính</span>,
-      key: 'genders',
-      dataIndex: 'genders',
-      render: (_, { genders }) => (
-        <>
-          {genders.map((gender) => {
-            let color = gender.length > 5 ? 'geekblue' : 'blue';
-            if (gender === 'Nữ') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={gender}>
-                {gender.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
+      ><UnorderedListOutlined /> Loại Lương</span>,
+      dataIndex: 'stypes',
+      render: (stype) => {
+        let color = 'cyan';
+        let backgroundColor = '';
 
-    {
-      title: <span
-        style={{}}
-      ><AlignLeftOutlined /> Email</span>,
-      dataIndex: 'email',
-      render: (email) => <span style={{ color: 'gray' }}>{email}</span>,
+        if (stype === 'Gross To Net') {
+          color = '#27589C';
+          backgroundColor = '#C9FCFA';
 
+        }
+
+        return (
+          <Tag color={backgroundColor} key={stype} style={{
+            color: [color],
+
+          }}>
+            {stype.toUpperCase()}
+          </Tag>
+        );
+
+
+      },
     },
 
 
     {
       title: <span
         style={{}}
-      ><AlignLeftOutlined /> Ngân hàng</span>,
-      dataIndex: 'bank',
-      render: (bank) => <span style={{ color: 'gray' }}>{bank}</span>,
+      ><BorderlessTableOutlined rotate={4} /> Người phụ thuộc</span>,
+      dataIndex: 'depend',
+      render: (depend) => <span style={{ color: 'gray' }}>{depend}</span>,
 
     },
 
     {
       title: <span
         style={{}}
-      ><CalendarOutlined /> Ngày Sinh</span>,
-      dataIndex: 'date',
-      render: (date) => <span style={{ color: 'gray' }}>{date}</span>,
+      ><CalendarOutlined /> Ngày bắt đầu</span>,
+      dataIndex: 'sdate',
+      render: (sdate) => <span style={{ color: 'gray' }}>{sdate}</span>,
 
     },
 
     {
       title: <span
         style={{}}
-      ><AlignLeftOutlined /> Địa chỉ</span>,
-      dataIndex: 'address',
-      render: (address) => <span style={{ color: 'gray' }}>{address}</span>,
+      ><CalendarOutlined /> Ngày kết thúc</span>,
+      dataIndex: 'edate',
+      render: (edate) => <span style={{ color: 'gray' }}>{edate}</span>,
 
     },
 
     {
       title: <span
         style={{}}
-      ><AlignLeftOutlined /> Quốc gia</span>,
-      dataIndex: 'nation',
-      render: (nation) => <span style={{ color: 'gray' }}>{nation}</span>,
+      ><BorderlessTableOutlined rotate={4} /> Lương thỏa thuận</span>,
+      dataIndex: 'salary',
+      render: (salary) => <span style={{ color: 'gray', float: 'right' }} >{salary} <u>đ</u></span>,
 
     },
 
     {
       title: <span
         style={{}}
-      ><BorderlessTableOutlined rotate={4} /> TK Ngân Hàng</span>,
-      dataIndex: 'bankaccount',
-      render: (bankaccount) => <span style={{ color: 'gray' }}>{bankaccount}</span>,
+      ><BorderlessTableOutlined rotate={4} /> Lương đóng thuế</span>,
+      dataIndex: 'tax',
+      render: (tax) => <span style={{ color: 'gray', float: 'right' }}>{tax} <u>đ</u></span>,
+
+    },
+
+    {
+      title: <span
+        style={{}}
+      ><BorderlessTableOutlined rotate={4} /> Tổng phụ cấp</span>,
+      dataIndex: 'allowance',
+      render: (allowance) => <span style={{ color: 'gray' }}>{allowance} <u>đ</u></span>,
+
+    },
+
+    {
+      title: <span
+        style={{}}
+      ><AlignLeftOutlined rotate={360} /> Ghi chú</span>,
+      dataIndex: 'note',
+      render: (note) => {
+        // let color = 'cyan';
+
+        if (note === '') {
+          note = <i>Chưa có ghi chú</i>;
+        }
+        if (note === 'Hợp đồng không xác định hạn') {
+          //  color = 'lime';
+        }
+
+        return (
+          <span style={{ color: 'grey' }}>{note}</span>
+        );
+      },
+
+    },
+
+    {
+      title: <span
+        style={{}}
+      ><CalendarOutlined /> Thời gian tạo</span>,
+      dataIndex: 'createtime',
+      render: (createtime) => <span style={{ color: 'gray' }}>{createtime}</span>,
+
+    },
+
+    {
+      title: <span
+        style={{}}
+      ><CalendarOutlined /> Thời gian thay đổi</span>,
+      dataIndex: 'changedtime',
+      render: (changedtime) => <span style={{ color: 'gray' }}>{changedtime}</span>,
 
     },
 
@@ -417,14 +414,14 @@ export default function AllStaff() {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const [mode, setMode] = useState('inline');
+  // const [mode, setMode] = useState('inline');
   const [theme1, setTheme1] = useState('light');
-  const changeMode = (value) => {
-    setMode(value ? 'vertical' : 'inline');
-  };
-  const changeTheme = (value) => {
-    setTheme1(value ? 'dark' : 'light');
-  };
+  // const changeMode = (value) => {
+  //   setMode(value ? 'vertical' : 'inline');
+  // };
+  // const changeTheme = (value) => {
+  //   setTheme1(value ? 'dark' : 'light');
+  // };
 
   return (
     <Layout hasSider >
@@ -435,10 +432,8 @@ export default function AllStaff() {
           marginLeft: '320px',
           bottom: 0,
           // height: '140vh',
-          // minHeight:'max-content',
           marginRight: '10px',
-          backgroundColor: 'white'
-
+          backgroundColor: "white"
         }}
       >
         <Header
@@ -453,7 +448,7 @@ export default function AllStaff() {
           }}
 
         >
-          <h3 style={{ display: 'inline', float: 'left', margin: '0px 20px 0px 0px' }}>DANH SÁCH NHÂN VIÊN</h3>
+          <h3 style={{ display: 'inline', float: 'left', margin: '0px 20px 0px 0px' }}>HỢP ĐỒNG NHÂN VIÊN</h3>
           <Link to="/dashboard">
             <Button size='large'
               style={{
@@ -474,7 +469,6 @@ export default function AllStaff() {
               />
             </Button>
           </Link>
-
         </Header>
 
         <Header
@@ -487,80 +481,19 @@ export default function AllStaff() {
             borderRadius: '10px',
           }}
         >
-          <div
+          <Input
+            placeholder='Tìm kiếm'
             style={{
-              display: 'flex',
-              justifyContent: 'space-between'
-
-            }}>
-            <Input
-              placeholder='Tìm kiếm'
-              style={{
-                borderStyle: 'none',
-                borderBottom: 'solid 0.5px ',
-                borderRadius: 0,
-                display: 'inline',
-                width: '200px',
-                float: 'left',
-                // marginTop: '16px'
-                margin: '15px 0px 0px 0px',
-              }}
-            />
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between'
-              }}
-            >
-              <Select
-                style={{
-                  margin: '15px 10px 0px 0px',
-                }}
-                defaultValue=""
-                // style={{ width:"" }}
-                // onChange={handleFilterChange}
-                // value={filterDepartment}
-                bordered={false}
-              >
-                <Option value="">Tất cả phòng ban</Option>
-                <Option value="Finance">Finance</Option>
-                <Option value="Human Resource">Human Resource</Option>
-                <Option value="Sales">Sales</Option>
-                <Option value="Marketing">Marketing</Option>
-                <Option value="Operations">Operations</Option>
-                <Option value="Engineering">Engineering</Option>
-                <Option value="Customer Support">Customer Support</Option>
-                <Option value="Research & Development">
-                  Research & Development
-                </Option>
-                <Option value="Quality Assurance">Quality Assurance</Option>
-                <Option value="Design">Design</Option>
-                <Option value="Chăm sóc khách hàng">Chăm Sóc Khách Hàng</Option>
-              </Select>
-
-              <Button
-                style={{
-                  borderColor: '#82E0AA',
-                  color: '#82E0AA',
-                  margin: '15px 0px 0px 0px',
-                  // marginRight: '420px'
-
-                }}
-              >Làm mới</Button>
-
-            </div>
-
-
-            <Button type="primary" size='large'
-
-              style={{
-                // float: 'right',
-                margin: '13px 0px 0px 0px',
-              }}>
-
-              <PlusCircleOutlined /> Thêm nhân viên</Button>
-          </div>
-
+              borderStyle: 'none',
+              borderBottom: 'solid 0.5px ',
+              borderRadius: 0,
+              display: 'inline',
+              width: '200px',
+              float: 'left',
+              // marginTop: '16px'
+              margin: '15px 0px 0px 0px',
+            }}
+          />
 
         </Header>
 
@@ -569,8 +502,6 @@ export default function AllStaff() {
           style={{
             margin: '10px 16px 50px',
             overflow: 'initial',
-            // backgroundColor:'white'
-
           }}
         >
           <div
@@ -593,6 +524,7 @@ export default function AllStaff() {
         </Content>
         <Footer1 />
       </Layout>
+
     </Layout>
-  )
+  );
 }
